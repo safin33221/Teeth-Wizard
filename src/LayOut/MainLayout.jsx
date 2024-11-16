@@ -1,9 +1,14 @@
 import React from 'react';
+import Navbar from '../Components/Navbar/Navbar';
+import { Outlet } from 'react-router-dom';
 
 const MainLayout = () => {
     return (
-        <div>
-            <h1>main layout </h1>
+        <div >
+            <nav className='bg-blue-950 '>
+                <Navbar></Navbar>
+            </nav>
+            <Outlet></Outlet>
         </div>
     );
 };
