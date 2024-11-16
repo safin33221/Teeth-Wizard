@@ -8,25 +8,38 @@ import Profie from "../Routes/Profie";
 
 const router = createBrowserRouter([
     {
-        path:'/',
-        element:<MainLayout></MainLayout>,
-        children:[
+        path: '/',
+        element: <MainLayout></MainLayout>,
+        children: [
             {
-                path:'/',
-                element:<Home></Home>,
-                loader:()=> fetch('/service.json')
+                path: '/',
+                element: <Home></Home>,
+                loader: async () => {
+                    const servicesRes = await fetch('/service.json')
+                    const services = await servicesRes.json()
+
+
+                    const feedBackRes = await fetch('/happyClients.json')
+                    const FeedBack = await feedBackRes.json()
+
+                    return { services, FeedBack }
+
+
+                }
             },
             {
-                path:'/AllTreatments',
-                element:<AllTreatments></AllTreatments>
+                path: '/AllTreatments',
+                element: <AllTreatments></AllTreatments>,
+                loader: () => fetch('/service.json')
             },
             {
-                path:'/Myappoinments',
-                element:<Myappoinments></Myappoinments>
+                path: '/Myappoinments',
+                element: <Myappoinments></Myappoinments>,
+
             },
             {
-                path:'/Profie',
-                element:<Profie></Profie>
+                path: '/Profie',
+                element: <Profie></Profie>
             },
         ]
     }
