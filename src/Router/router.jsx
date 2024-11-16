@@ -4,6 +4,7 @@ import Home from "../Routes/Home";
 import AllTreatments from "../Routes/AllTreatments";
 import Myappoinments from "../Routes/Myappoinments";
 import Profie from "../Routes/Profie";
+import Details from "../Routes/Details";
 
 
 const router = createBrowserRouter([
@@ -41,8 +42,23 @@ const router = createBrowserRouter([
                 path: '/Profie',
                 element: <Profie></Profie>
             },
+            {
+                path: '/details/:id',
+                element: <Details></Details>,
+                loader: async ({ params }) => {
+                    const dataRes = await fetch('/service.json')
+                    const data = await dataRes.json()
+
+
+                    const singleData = data.find(d => d.id == params.id)
+                    
+                    return singleData
+
+                }
+            }
+
         ]
-    }
+    },
 ])
 
 export default router;
